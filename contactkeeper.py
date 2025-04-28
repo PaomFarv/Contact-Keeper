@@ -1,5 +1,6 @@
 import csv
-import os	
+import os
+from colorama import Fore	
 
 class ContactKeeper:
     def __init__(self):
@@ -11,21 +12,21 @@ class ContactKeeper:
         while True:
             name = input("Enter the contact name: ")
             if len(name) < 3:
-                print("Name must be at least 3 characters long.")
+                print(Fore.RED + "Name must be at least 3 characters long.")
                 continue
             break
 
         while True:
             phone = input("Enter the contact phone number: ")
             if len(phone) < 10 or not phone.isdigit():
-                print("Phone number must be at least 10 digits long and contain only numbers.")
+                print(Fore.RED + "Phone number must be at least 10 digits long and contain only numbers.")
                 continue
             break
 
         while True:
             email = input("Enter the contact email: ")
             if "@" not in email or "." not in email.split("@")[-1]:
-                print("Invalid email format.")
+                print(Fore.RED + "Invalid email format.")
                 continue
             break
 
@@ -39,12 +40,12 @@ class ContactKeeper:
             writer = csv.writer(file)
             writer.writerow([name, phone, email])
 
-        print("Contact added successfully.\n")
+        print(Fore.GREEN + "Contact added successfully.\n")
 
     def view_contacts(self):
         file_path = "contacts.csv"
         if not os.path.exists(file_path):
-            print("No prior contacts to display.\n")
+            print(Fore.RED + "No prior contacts to display.\n")
             return
         
         self.name.clear()
@@ -69,7 +70,7 @@ class ContactKeeper:
     def del_contact(self):
         file_path = "contacts.csv"
         if not os.path.exists(file_path):
-            print("No prior contacts to display.\n")
+            print(Fore.RED + "No prior contacts to display.\n")
             return
         
         self.name.clear()
@@ -94,12 +95,12 @@ class ContactKeeper:
                 if 1 <= choice <= len(self.name):
                     break
                 elif choice == 0:
-                    print("Deletion cancelled.")
+                    print(Fore.GREEN + "Deletion cancelled.")
                     return
                 else:
-                    print("Invalid choice. Please try again.")
+                    print(Fore.RED + "Invalid choice. Please try again.")
             except ValueError:
-                print("Invalid input. Please enter a number.")
+                print(Fore.RED + "Invalid input. Please enter a number.")
 
         del self.name[choice - 1]
         del self.phone[choice - 1]
@@ -110,17 +111,19 @@ class ContactKeeper:
             for i in range(len(self.name)):
                 writer.writerow([self.name[i], self.phone[i], self.email[i]]) 
             
-        print("Contact deleted successfully.\n")
+        print(Fore.GREEN + "Contact deleted successfully.\n")
 
 def main():
     print()
-    print("<>"*100)
-    print("Welcome to Contact Keeper!")
+    print(Fore.YELLOW + "<>"*100)
+    print(Fore.WHITE + "Welcome to Contact Keeper!")
     print("Choose an option from the following :")
     print("\n1. Add Contact")
     print("2. View Contacts")
-    print("3. Delete Contact")
-    print("4. Exit")
+    print("3. Delete a Contact")
+    print("4. Search Contact by Name (TBA)")
+    print("5. Delete All Contacts (TBA)")
+    print("6. Exit")
     print("<>"*100)
     print("\n")
 
@@ -141,5 +144,5 @@ while True:
         print("Exiting the program. Goodbye!")
         break
     else:
-        print("Invalid choice. Please try again.")
+        print(Fore.RED + "Invalid choice. Please try again.")
 
