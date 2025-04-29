@@ -113,6 +113,16 @@ class ContactKeeper:
             
         print(Fore.GREEN + "Contact deleted successfully.\n")
 
+    
+    
+    def all_clear(self):
+        file_path = "contacts.csv"
+        if os.path.exists(file_path):
+            os.remove(file_path)
+            print(Fore.GREEN + "All contacts deleted successfully.\n")
+        else:
+            print(Fore.RED + "No contacts to delete.\n")
+
 def main():
     print()
     print(Fore.YELLOW + "<>"*100)
