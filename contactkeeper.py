@@ -113,7 +113,26 @@ class ContactKeeper:
             
         print(Fore.GREEN + "Contact deleted successfully.\n")
 
-    
+    def search_contact(self):
+        file_path = "contacts.csv"
+        if not os.path.exists(file_path):
+            print(Fore.RED + "No prior contacts to display.\n")
+            return
+        
+        search_name = input("Enter the name of the contact to search: ")
+        found = False
+
+        with open(file_path, mode='r') as file:
+            reader = csv.reader(file)
+            for row in reader:
+                name, phone, email = row
+                if search_name.lower() in name.lower():
+                    print(f"Contact found: {name}, Phone: {phone}, Email: {email}")
+                    found = True
+                    break
+
+        if not found:
+            print(Fore.RED + "Contact not found.\n")
     
     def all_clear(self):
         file_path = "contacts.csv"
@@ -131,8 +150,8 @@ def main():
     print("\n1. Add Contact")
     print("2. View Contacts")
     print("3. Delete a Contact")
-    print("4. Search Contact by Name (TBA)")
-    print("5. Delete All Contacts (TBA)")
+    print("4. Search Contact by Name")
+    print("5. Delete All Contacts")
     print("6. Exit")
     print("<>"*100)
     print("\n")
@@ -151,6 +170,10 @@ while True:
     elif user_pick == "3":
         contact_keeper.del_contact()
     elif user_pick == "4":
+        contact_keeper.search_contact()
+    elif user_pick == "5":
+        contact_keeper.all_clear()
+    elif user_pick == "6":
         print("Exiting the program. Goodbye!")
         break
     else:
