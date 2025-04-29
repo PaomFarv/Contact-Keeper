@@ -135,6 +135,9 @@ class ContactKeeper:
             print(Fore.RED + "Contact not found.\n")
     
     def all_clear(self):
+        confirm = input("Are you sure you want to delete all contacts? (y/n): ").lower()
+        if confirm != 'y': return
+        
         file_path = "contacts.csv"
         if os.path.exists(file_path):
             os.remove(file_path)
@@ -178,4 +181,3 @@ while True:
         break
     else:
         print(Fore.RED + "Invalid choice. Please try again.")
-
